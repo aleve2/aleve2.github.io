@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Website</title>
+    <style>
+        /* Add your custom styles here */
+        .banner {
+            background-color: #f1f1f1;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            /* Add your logo styles here */
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <div class="logo">
+            <img src="logo-color.png" alt="Logo" style="width: 100px; height: 100px;">
+        </div>
+        <!-- Add your banner content here -->
+    
+  </div>
+  
+  <!-- Add your Thunkable app embed code here -->
+    <iframe src="https://thunkable.site/w/-EJd4vT-4x29GNAOkTHZI" width="100%" height="1000px"></iframe>
+
+<div>
+    <table>
+        <thead>
+            <th>Name</th>
+            <th>Image</th>
+        </thead>
+        <tbody id="tbody1"></tbody>
+    </table>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script>
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "firebase/app";
+    import { getAnalytics } from "firebase/analytics";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyDaD9AkGoswjOgjZWlq8OLctMsd5A_FS6g",
+        authDomain: "profileapp-5c0f8.firebaseapp.com",
+        databaseURL: "https://profileapp-5c0f8-default-rtdb.firebaseio.com",
+        projectId: "profileapp-5c0f8",
+        storageBucket: "profileapp-5c0f8.appspot.com",
+        messagingSenderId: "782905156875",
+        appId: "1:782905156875:web:7a5ad461d55ea893eaee0e",
+        measurementId: "G-TFE9N0H8TN"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+
+    import { getDatabase, ref, set, get, child, update, remove } from "firebase/database";
+
+    const db = getDatabase();
+
+
+    // Retrieve data from the database
+    const usersRef = ref(db);
+    usersRef.on('value', (snapshot) => {
+        const tbody = document.getElementById('tbody1');
+        tbody.innerHTML = '';
+
+        snapshot.forEach((childSnapshot) => {
+            const user = childSnapshot.val();
+            const name = user.name;
+            const image = user.image;
+
+            const row = document.createElement('tr');
+            const nameCell = document.createElement('td');
+            const imageCell = document.createElement('td');
+            const imageElement = document.createElement('img');
+            imageElement.src = image;
+            imageElement.alt = name;
+            imageElement.style.width = '100px';
+            imageElement.style.height = '100px';
+
+            nameCell.textContent = name;
+            imageCell.appendChild(imageElement);
+
+            row.appendChild(nameCell);
+            row.appendChild(imageCell);
+
+            tbody.appendChild(row);
+        });
+    });
+</script>
+
+</body>
+</html>
+    
+
+
+
+
+  
+</body>
+</html>
